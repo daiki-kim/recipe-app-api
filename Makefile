@@ -4,7 +4,7 @@ APP_NAME ?= myapp
 USER_NAME ?= admin
 
 # Build the Docker images
-build
+build:
 	@docker compose build
 
 # Run the development server with docker-compose
