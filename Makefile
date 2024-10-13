@@ -16,7 +16,7 @@ startproject:
 	@docker compose run --rm app sh -c "django-admin startproject $(PROJECT_NAME) ."
 
 # Lint the Django project
-lint
+lint:
 	@docker compose run --rm app sh -c "flake8"
 	
 # Run all tests in the Django project
