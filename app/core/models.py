@@ -11,8 +11,9 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('User must have an email address.')
 
-        user = self.model(email=self.normalize_email(email), **extra_fields) # self.model: ユーザーを作成する(= create_user)
-        user.set_password(password) # set_password: パスワードを暗号化する
+        # self.model: ユーザーを作成する(= create_user)
+        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user.set_password(password)  # set_password: パスワードを暗号化する
         user.save(using=self._db)
 
         return user
