@@ -10,7 +10,7 @@ build:
 # Run the development server with docker-compose
 up:
 	@docker compose up
-	
+
 # Clear the containers
 down:
 	@docker compose down
@@ -18,7 +18,7 @@ down:
 # Create a new Django project
 startproject:
 	@docker compose run --rm app sh -c "django-admin startproject $(PROJECT_NAME) ."
-	
+
 # Create a new Django app
 startapp:
 	@docker compose run --rm app sh -c "django-admin startapp $(APP_NAME)"
@@ -26,7 +26,7 @@ startapp:
 # Lint the Django project
 lint:
 	@docker compose run --rm app sh -c "flake8"
-	
+
 # Run all tests in the Django project
 test:
 	@docker compose run --rm app sh -c "python manage.py test"
@@ -34,6 +34,18 @@ test:
 # Run all tests in the Django project
 waitdb-test:
 	@docker compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
+
+# Create the migrations for new models
+migrations:
+	@docker compose run --rm app sh -c "python manage.py makemigrations"
+
+# Migrate the database
+migrate:
+	@docker compose run --rm app sh -c "python manage.py wait_for_db && python manage.py migrate"
+
+# Create a superuser
+createsuperuser:
+	@docker compose run --rm app sh -c "python manage.py createsuperuser"
 
 # Help
 help:
@@ -45,3 +57,7 @@ help:
 	@echo "  make startapp APP_NAME=<your_app_name>             - Create a new Django app"
 	@echo "  make lint                                         - Lint the Django project"
 	@echo "  make test                                         - Run the tests"
+	@echo "  make waitdb-test                                  - Run the tests and wait for the database to be ready"
+	@echo "  make migrations                               - Create the migrations for new models"
+	@echo "  make migrate                                      - Migrate the database"
+	@echo "  make createsuperuser                              - Create a superuser"
