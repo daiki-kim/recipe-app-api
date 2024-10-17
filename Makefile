@@ -21,7 +21,7 @@ startproject:
 
 # Create a new Django app
 startapp:
-	@docker compose run --rm app sh -c "django-admin startapp $(APP_NAME)"
+	@docker compose run --rm app sh -c "python manage.py startapp $(APP_NAME)"
 
 # Lint the Django project
 lint:
